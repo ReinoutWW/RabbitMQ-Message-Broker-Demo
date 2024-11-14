@@ -13,11 +13,10 @@ async function connect() {
         channel.consume("jobs", message => {
             var input = JSON.parse(message.content.toString());
             console.log(`Received job with input ${input.number}`);	
-            
-            if(input.number == 7) {
-                console.log('Job acklowledged');
-                channel.ack(message); // Remove from the queue
-            }
+            channel.ack(message); // Remove from the queue
+            console.log(`Acknowledge message..`);
+            // Wait 1s
+            setTimeout(() => {}, 1000);
         });
 
         console.log(`Waiting for messages...`);
